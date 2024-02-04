@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    /* Reflacion con modelo Family muchas Categorias pertenece a una Familia */  
+    public function famyly(){
+        return $this->belongsTo(Family::class);
+    }
+
+
+    /* Una Categoria contiene muchas SubCategorias */
+    public function subcategories(){
+        return $this->hasMany(Subcategory::class);
+    }
+
+
 }

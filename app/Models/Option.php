@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Option extends Model
 {
     use HasFactory;
+
+     /* Relacion Muchos a Muchos con Model Product */
+
+     public function products(){
+        return $this->belongsToMany(Product::class)
+         ->withPivot('value')
+         ->withTimestamps();
+    }
+
+
+    /* Relacion una option con muchos Feature */
+    public function features(){
+        return $this->hasMany(Feature::class);
+    }
 }
+

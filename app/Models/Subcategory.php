@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Subcategory extends Model
 {
     use HasFactory;
+
+     /* Relacion con modelo Category muchas Subcategorias pertenece a una Category */  
+     public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+
+   /*  Definimos la relacion con products uno a muchos*/
+   public function products(){
+    return $this->hasMany(Product::class);
+}
+
+
 }
