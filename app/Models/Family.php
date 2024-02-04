@@ -9,6 +9,11 @@ class Family extends Model
 {
     use HasFactory;
 
+    //Habiltar Asigancion Masiva
+    protected $fillable = [
+        'name',
+    ];
+
     //Relacion una famila muchas categorias
     public function categories(){
         return $this->hasMany(Category::class);

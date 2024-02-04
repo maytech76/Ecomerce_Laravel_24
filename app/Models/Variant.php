@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Variant extends Model
 {
     use HasFactory;
+    
+     //Habiltar Asigancion Masiva
+     protected $fillable = [
+        'sku',
+        'image_path',
+        'product_id'
+    ];
 
     public function product(){
         return $this->belongsTo(Product::class);

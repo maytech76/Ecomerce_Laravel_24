@@ -9,6 +9,12 @@ class Category extends Model
 {
     use HasFactory;
 
+     //Habiltar Asigancion Masiva
+     protected $fillable = [
+        'name',
+        'family_id'
+    ];
+
     /* Reflacion con modelo Family muchas Categorias pertenece a una Familia */  
     public function famyly(){
         return $this->belongsTo(Family::class);
