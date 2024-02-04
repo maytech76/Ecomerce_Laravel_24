@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Family;
 
 class Family extends Model
 {
@@ -11,7 +12,7 @@ class Family extends Model
 
     //Habiltar Asigancion Masiva
     protected $fillable = [
-        'name',
+        'name'
     ];
 
     //Relacion una famila muchas categorias
