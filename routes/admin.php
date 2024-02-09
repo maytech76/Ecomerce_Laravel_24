@@ -3,5 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/' , function(){
-   return "dashdboard Admin";
-})->name('Dashboard');
+
+   return view('admin.dashboard');
+   
+})->name('dashboard');
