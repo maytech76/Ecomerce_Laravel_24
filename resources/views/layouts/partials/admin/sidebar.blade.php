@@ -8,6 +8,15 @@
          'route'=>route('admin.dashboard'),
          'active'=> request()->routeIs('admin.dashboard'),
 
+      ],
+
+      //Familia de Productos
+      [
+         'icon'=>'fa-solid fa-box-open',
+         'name'=>'Familias',
+         'route'=>route('admin.families.index'),
+         'active'=>request()->routeIs('admin.families.*'),
+
       ]
 
 ];
