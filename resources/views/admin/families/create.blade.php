@@ -20,27 +20,31 @@
      
    ]">
 
+
    <div class="card">
 
-    <form action="{{route('admin.families.store')}}" method="POST">
+        <form action="{{route('admin.families.store')}}" method="POST">
 
-        @csrf
+            @csrf
 
-        <div class="">
-            <x-label class="mb-2">
-                Nombre
-            </x-label>
-            <x-input class="w-full" placeholder="Ingresar Nombre de la Familia.." name="name" value="{{old('name')}}"/>
-        </div>
+            <x-validation-errors class="mb-4"/>
 
-    
-            <div class="flex justify-end">
-                <x-button type="submit" class="btn btn-verde mt-2">
-                    Registrar
-                </x-button>
+            <div class="">
+                <x-label class="mb-4">
+                    Nombre
+                </x-label>
+
+                <x-input class="w-full" placeholder="ingresar nombre de la familia.." name="name" value="{{old('name')}}"/>
             </div>
 
-    </form>
+        
+                <div class="flex justify-end">
+                    <x-button type="submit" class="btn btn-verde mt-2">
+                        Registrar
+                    </x-button>
+                </div>
+
+        </form>
 
    </div>
 

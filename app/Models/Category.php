@@ -16,7 +16,7 @@ class Category extends Model
     ];
 
     /* Reflacion con modelo Family muchas Categorias pertenece a una Familia */  
-    public function famyly(){
+    public function family(){
         return $this->belongsTo(Family::class);
     }
 

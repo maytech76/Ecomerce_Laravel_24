@@ -14,7 +14,7 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        $families = Family::paginate(5);
+        $families = Family::orderBy('id', 'desc')->paginate(5);
         return view('admin.families.index', compact('families'));
     }
 
@@ -31,7 +31,27 @@ class FamilyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Aplicamos Validaciones
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        //Aprobada la validacion > Insertamos datos en la Tabla Families
+        Family::create($request->all());
+
+           //Iniciamos una variable de session
+           session()->flash('swal', [
+
+            'icon' =>'success',
+            'title' => '!Buen Trabajo...¡',
+            'text' => 'Registro Exitoso',
+            'showConfirmButton'=> false,
+            'timer'=> 1800
+           ]);
+
+        //retornar a la vista index
+        return redirect()->route('admin.families.index');
+
     }
 
     /**
@@ -43,11 +63,11 @@ class FamilyController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Mostramos el formulario para editar un registro especifico.
      */
     public function edit(Family $family)
     {
-        //
+      return view('admin.families.edit', compact('family'));
     }
 
     /**
@@ -55,7 +75,28 @@ class FamilyController extends Controller
      */
     public function update(Request $request, Family $family)
     {
-        //
+         
+
+        //Aplicamos Validaciones
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        //Aprobada la validacion > Actualizamos datos en la Tabla Families
+        $family->update($request->all());
+
+        //Iniciamos una variable de session
+        session()->flash('swal', [
+
+            'icon' =>'success',
+            'title' => '!Buen Trabajo...¡',
+            'text' => 'Datos del registro actualizados',
+            'showConfirmButton'=> false,
+            'timer'=> 1800
+        ]);
+
+        //retornar a la vista index
+        return redirect()->route('admin.families.edit', $family);
     }
 
     /**
@@ -63,6 +104,30 @@ class FamilyController extends Controller
      */
     public function destroy(Family $family)
     {
-        //
+
+
+       
+        //Verificamos si el registro Family cuenta con Categorias Asociadas 
+        if ($family->categories->count()>0) {
+            session()->flash('swal', [
+                'icon'=>'error',
+                'title'=>'¡Ups!',
+                'text' =>'No se puede eliminar el registro, se relaciona con una categoria'
+            ] );
+            
+            return redirect()->route('admin.families.edit', $family);
+        }
+        
+        $family->delete();
+        
+        session()->flash('swal',[
+            'title' => "Eliminado!",
+            'text' => "Registro Eliminado Exitosamente.",
+            'icon'=> "success",
+            'showConfirmButton'=> false,
+            'timer'=> 1800
+        ]);
+        
+        return redirect()->route('admin.families.index');
     }
 }
