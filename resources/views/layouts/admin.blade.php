@@ -85,6 +85,15 @@
       
     @endif
 
+     
+
+   {{-- emitimos los eventos que podamos escucha con livewire --}}
+    <script>
+        Livewire.on('swal', data =>{
+          Swal.fire(data[0]);
+        })
+    </script>
+
 </body>
 
 </html>

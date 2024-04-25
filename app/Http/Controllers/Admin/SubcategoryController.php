@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subcategory;
-use App\Models\category;
+use App\Models\Category;
 use App\Models\Family;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,9 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $subcategories = Subcategory::with('category.family')->paginate(5);
+        $subcategories = Subcategory::with('category.family')
+            ->orderBy('id', 'desc')
+              ->paginate(5);
         /* return $subcategories; */
         return view('admin.subcategories.index', compact('subcategories'));
     }
@@ -25,7 +27,8 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        //
+      
+        return view('admin.subcategories.create');
     }
 
     /**
@@ -33,8 +36,29 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /* Aplicamos validaciones para los campos category_id the name */
+        $request->validate([
+            'category_id'=> 'required|exists:categories,id',
+            'name'=>'required|min:6',
+        ]);
+
+        //Insertamos el nuevo registro
+        Subcategory::create($request->all());
+
+        //Mostramos un flash informativo con SweeAlert
+        session()->flash('swal',
+                [
+                    'icon'=>'success',
+                    'title'=>'¡Excelente..!',
+                    'text'=>'Sub-Categoria Creada Correctamente..',
+                    'showConfirmButton'=> false,
+                    'timer'=> 1800
+                ]);
+
+        //Redirigimos a la vista Listado de SubCategorias
+        return redirect()->route('admin.subcategories.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -49,7 +73,7 @@ class SubcategoryController extends Controller
      */
     public function edit(Subcategory $subcategory)
     {
-        //
+       return view('admin.subcategories.edit', compact('subcategory'));
     }
 
     /**
