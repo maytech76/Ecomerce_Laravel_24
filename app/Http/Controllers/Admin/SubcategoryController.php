@@ -89,6 +89,28 @@ class SubcategoryController extends Controller
      */
     public function destroy(Subcategory $subcategory)
     {
-        //
+        //Verificamos si el registro Family cuenta con Categorias Asociadas 
+        if ($subcategory->products->count()>0) {
+            session()->flash('swal', [
+                'icon'=>'error',
+                'title'=>'¡Ups!',
+                'text' =>'No se puede eliminar el registro, contiene productos asociados'
+            ] );
+            
+            return redirect()->route('admin.subcategories.edit', $subcategory);
+        }
+        
+        $subcategory->delete();
+        
+        session()->flash('swal',[
+            'title' => "Eliminado!",
+            'text' => "Registro Eliminado Exitosamente.",
+            'icon'=> "success",
+            'showConfirmButton'=> false,
+            'timer'=> 1800
+        ]);
+        
+        return redirect()->route('admin.categories.index');
     }
 }
+
