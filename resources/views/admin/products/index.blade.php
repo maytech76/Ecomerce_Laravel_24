@@ -5,25 +5,26 @@
       'route'=> route('admin.dashboard'),
       
     ],
-    
-    [
-        'name'=>'Sub-Categorias',
-        
-    ],
-        
-    ]">
 
+    [
+      'name'=>'Productos',
+      
+     ]
+     
+   ]">
+
+   
     {{-- Boton nuevo Registro --}}
     <x-slot name="action">
     
-        <a class="btn btn-azul" href="{{route('admin.subcategories.create')}}">
+        <a class="btn btn-azul" href="{{route('admin.products.create')}}">
             + Nuevo
         </a>
         
     </x-slot>
 
      {{--  Tabla del listado de Categorias --}}
-  @if ($subcategories->count())
+  @if ($products->count())
 
   
   {{-- Tablas de Registros --}}
@@ -36,17 +37,16 @@
                   </th>
 
                   <th scope="col" class="px-6 py-3">
+                      Sku
+                  </th>
+                  <th scope="col" class="px-6 py-3">
                       Nombre
                   </th>
 
                   <th scope="col" class="px-6 py-3">
-                      Categoria
+                      Precio
                   </th>
 
-                  <th scope="col" class="px-6 py-3">
-                      Familia
-                  </th>
-                  
                   <th scope="col" class="px-6 py-3">
                       Acción
                   </th>
@@ -54,27 +54,27 @@
           </thead>
           <tbody>
 
-              @foreach ($subcategories as $subcategory )
+              @foreach ($products as $product )
                   
                   <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                          {{$subcategory->id}}
+                          {{$product->id}}
                       </th>
 
                       <td class="px-6 py-4">
-                          {{$subcategory->name}}
+                          {{$product->sku}}
                       </td>
 
                       <td class="px-6 py-4">
-                          {{$subcategory->category->name}}
+                          {{$product->name}}
                       </td>
 
                       <td class="px-6 py-4">
-                          {{$subcategory->category->family->name}}
+                          {{$product->price}}
                       </td>
                       
                       <td class="px-6 py-4">
-                          <a href="{{route('admin.subcategories.edit', $subcategory)}}">
+                          <a href="{{route('admin.products.edit', $product)}}">
                           Editar
                           </a>
                       </td>
@@ -104,7 +104,6 @@
 
 {{-- Paginacion --}}
 <div class="mt-4">
-{{$subcategories->links()}}
+{{$products->links()}}
 </div>
-
 </x-admin-layout>

@@ -33,6 +33,12 @@
          'active'=>request()->routeIs('admin.subcategories.*'),
          
       ],
+      [
+         'icon'=> 'fa-solid fa-box',
+         'name'=> 'Productos',
+         'route'=> route('admin.products.index'),
+         'active'=> request()->routeIs('admin.products.*'), 
+      ]
 
 ];
 @endphp
