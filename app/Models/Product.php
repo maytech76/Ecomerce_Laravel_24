@@ -13,7 +13,7 @@ class Product extends Model
         'sku',
         'name',
         'description',
-        'image_path',
+        'images_path',
         'price',
         'subcategory_id'
     ];
