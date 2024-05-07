@@ -36,10 +36,34 @@ class ProductCreate extends Component
         $this->families = Family::all();
     }
 
+    //En caso de fallar la validacion del formulario mostrar Alerta
+    public function boot(){
+       $this->withValidator(function($validator){
+
+        if ($validator->fails()) {
+
+            $this->dispatch('swal', [
+              'icon'=> 'error',
+              'title'=> '¡El formulario contiene Errores..!',
+              'text' =>'Revisar Detalles',
+              'showConfirmButton'=> false,
+              'timer'=> 2000
+            ]);
+        }
+
+       });
+    }
+
+
     //Si actualizamos el campo Family_id reset valos de campos category_id - subcategory_id
     public function updatedFamilyId($value)
     {
         $this->category_id = '';
+        $this->product['subcategory_id']='';
+    }
+
+    public function updatedCategoryId($value)
+    {
         $this->product['subcategory_id']='';
     }
 
@@ -55,6 +79,8 @@ class ProductCreate extends Component
         return Subcategory::where('category_id', $this->category_id)->get();
     }
 
+    
+
     //Metodo para insertar nuevo registro products
     public function store()
     {
@@ -69,31 +95,31 @@ class ProductCreate extends Component
                 'product.subcategory_id'=>'required|exists:subcategories,id',
         ]);
 
-       /*  Aplicamos un test para visualizar los campos que estamos enviando */
-       /* dd($this->product); */
+        /*  Aplicamos un test para visualizar los campos que estamos enviando */
+        /* dd($this->product); */
 
-       /* Asignamos al campo images_path la informacion de la imagen y la ruta donde se almacenara */
-       $this->product['images_path'] = $this->image->store('products');
+        /* Asignamos al campo images_path la informacion de la imagen y la ruta donde se almacenara */
+        $this->product['images_path'] = $this->image->store('products');
 
-    /*    dd($this->product); */
+        /*    dd($this->product); */
 
-       /* Almacenamos el la variable $product  el registro del productos con data del formulario y la imagen */
-       $product = Product::create($this->product);
+        /* Almacenamos el la variable $product  el registro del productos con data del formulario y la imagen */
+        $product = Product::create($this->product);
 
-       session()->flash('swal', [
-         
-        'icon'=>'success',
-        'title'=>'¡Excelente..!',
-        'text'=>'Producto Creado Correctamente..',
-        'showConfirmButton'=> false,
-        'timer'=> 1800
+        session()->flash('swal', [
+            
+                'icon'=>'success',
+                'title'=>'¡Excelente..!',
+                'text'=>'Producto Creado Correctamente..',
+                'showConfirmButton'=> false,
+                'timer'=> 1800
 
-       ]);
+            ]);
 
 
-       /* Direccionamos a la vista edit con los valores del producto */
-       return redirect()->route('admin.products.edit', $product);
-       
+        /* Direccionamos a la vista edit con los valores del producto */
+        return redirect()->route('admin.products.edit', $product);
+        
 
     }
 

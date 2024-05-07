@@ -14,6 +14,9 @@
             alt="">
         </figure>
 
+        {{-- Mensaje de errorres --}}
+        <x-validation-errors class="mb-4"/>
+            
 
         <div class="card">
 
