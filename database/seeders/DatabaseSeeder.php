@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\Family;
 use App\Models\Product;
+use App\Models\Option;
 use App\Models\User;
 
 
@@ -32,7 +33,10 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('products');
 
 
-        $this->call([FamilySeeder::class]);
+        $this->call([
+            FamilySeeder::class,
+            OptionSeeder::class,
+        ]);
 
         Product::factory(150)->create();
 

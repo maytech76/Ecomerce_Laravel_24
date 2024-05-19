@@ -10,6 +10,15 @@
 
       ],
 
+      //Opciones  para Productos
+      [
+         'icon'=>'fa-solid fa-cog',
+         'name'=>'Opciones',
+         'route'=>route('admin.options.index'),
+         'active'=>request()->routeIs('admin.options.*'),
+
+      ],
+      
       //Familia de Productos
       [
          'icon'=>'fa-solid fa-box-open',
