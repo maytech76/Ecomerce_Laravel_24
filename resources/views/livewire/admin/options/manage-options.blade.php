@@ -20,37 +20,58 @@
         <div class="space-y-6">
           @foreach ( $options as $option )
 
-              <div class="p-6 rounded-lg border border-gray-300 relative">
+              <div class="p-6 rounded-lg border border-gray-300 relative"
+                    wire:key="option-{{$option->id}}">
 
-                <div class="absolute -top-3 px-4 bg-white ">
-                    <span>
-                        {{ $option->name }}
-                    </span>
+                    {{-- Opciones --}}
+                    <div class="absolute -top-3 px-4 bg-white ">
+                        <span>
+                            {{ $option->name }}
+                        </span>
 
-                </div>
-                
-               {{--  Valores --}}
-                <div class="flex flex-wrap">
+                    </div>
+                    
+                     {{--  Valores --}}
+                    <div class="flex flex-wrap mb-4">
 
-                   @foreach ($option->features as $feature)
+                    @foreach ($option->features as $feature)
 
-                     @switch($option->type)
-                         @case(1)
-                            <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
-                               {{$feature->description}}  
-                            </span>
-                             @break
+                        @switch($option->type)
+                            @case(1)
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pr-0.5 pl-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
+                                {{$feature->description}}  
 
-                         @case(2)
-                             {{-- Color --}}
-                             <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{{$feature->value}}}"></span>
-                             @break
-                         @default
-                             
-                     @endswitch
-                       
-                   @endforeach
-                </div>
+                                    <button class="bg-red-200 hover:bg-orange-700 rounded-sm" {{-- wire:click="deleteFeature({{$feature->id}})" --}}
+                                            onclick="confirmDelete({{$feature->id}})"> 
+                                        <i class="fa-solid fa-xmark text-black hover:text-white px-1.5 py-1.2"></i>
+                                    </button>
+
+                                </span>
+                                @break
+
+                            @case(2)
+                               <div class="relative">
+                                    {{-- Color --}}
+                                    <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{{$feature->value}}}"></span>
+
+                                        <button class="bg-red-200 hover:bg-orange-700 rounded-full absolute z-10 left-3 -top-3 h-4 w-4 flex justify-center items-center"
+                                               onclick="confirmDelete({{$feature->id}})"> 
+                                            <i class="fa-solid fa-xmark text-black hover:text-white px-1 py-1 text-sm"></i>
+                                        </button>
+                               
+                               </div>
+
+                                @break
+                            @default
+                                
+                        @endswitch
+                        
+                    @endforeach
+                    </div>
+
+                    <div class="">
+                        @livewire('admin.options.add-new-feature', ['option'=> $option], key('add-new-feature-'. $option->id))
+                    </div>
 
               </div>
               
@@ -61,7 +82,8 @@
 
    </section>
 
-   {{-- Creamos sesion para el modal de registro de opciones --}}
+
+   {{-- Creamos sesion para el MODAL de registro de opciones --}}
    <x-dialog-modal wire:model="newOption.openModal">
      <x-slot name="title" >
         <div class="bg-gray-100 w-100 p-2 rounded-md font-semibold">
@@ -127,9 +149,6 @@
                                 <x-label class="mb-1 font-semibold">
                                 Valor
                                 </x-label>
-                
-                               
-
                                 @switch($newOption->type)
                                     @case(1)
                                     <x-input 
@@ -172,6 +191,7 @@
                 </div>
 
             @endforeach
+
         </div>
 
         <div class="flex justify-end">
@@ -194,5 +214,31 @@
 
      </x-slot>
    </x-dialog-modal>
+
+     @push('js')
+
+        <script>
+            function confirmDelete(featureId){
+                    Swal.fire({
+                    title: "Estas Seguro?",
+                    text: "Este Proceso es Inrebersible!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, Eliminar!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    
+                        @this.call('deleteFeature', featureId);
+                        }
+                });
+
+        }
+            
+        </script>
+         
+     @endpush
 
 </div>

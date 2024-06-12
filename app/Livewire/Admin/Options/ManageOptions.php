@@ -6,6 +6,7 @@ namespace App\Livewire\Admin\Options;
 use App\Livewire\Forms\Admin\Options\NewOptionForm;
 use Livewire\Component;
 use App\Models\Option;
+use Livewire\Attributes\On;
 use App\Models\Feature;
 
 
@@ -29,12 +30,43 @@ class ManageOptions extends Component
     }
 
 
+    /* Aplicamos un metodo llamado updateOptionsList, que recargara el listado de opciones y valores */
+
+    #[On('featureAdded')]
+    public function updateOptionsList(){
+
+     #Mostramos Alerta SweeAlert
+      $this->dispatch('swal',[
+        'position' => "top-end",
+        'text' => "Registro Efectuado",
+        'icon'=> "success",
+        'showConfirmButton'=> false,
+        'timer'=> 1500
+       
+       ]);
+
+        $this->options = Option::with('features')->get();
+    }
 
     /* llamamos al Metodo encargado del nuevo registro de Valores */
     public function addFeature(){
 
         $this->newOption->addFeature();
+
     }
+
+
+    /* Eliminamos al valor seccionado por medio de su id */
+    public  function deleteFeature(Feature $feature){
+        /* $this->newOption->deleteFeature($feature->id); */
+        /* dd($feature); */
+        $feature->delete();
+
+        /* refrescando el listado de Opciones */
+
+        $this->options = Option::with('features')->get();
+
+    }  
 
 
 
@@ -63,7 +95,7 @@ class ManageOptions extends Component
         'icon'=> "success",
         'showConfirmButton'=> false,
         'timer'=> 1800
-    ]);
+       ]);
 
     }
 
