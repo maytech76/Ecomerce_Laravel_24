@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('description');
 
              /* campo clave foranea con la tabla options */
-            $table->foreignId('option_id')->constrained();
+            $table->foreignId('option_id')
+            ->constrained()
+            ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

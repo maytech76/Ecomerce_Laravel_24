@@ -68,6 +68,13 @@ class ManageOptions extends Component
 
     }  
 
+    /* Metodo para eliminar Opcion */
+    public function deleteOption(Option $option)
+    {
+       $option->delete(); /* Aplicamos el metodo delete a la opcion selecionada */
+       $this->options = Option::with('features')->get(); /* Refrescamos el listado de opciones */
+    }
+
 
 
     /* Metodo encargado de Eliminar del listado los valores

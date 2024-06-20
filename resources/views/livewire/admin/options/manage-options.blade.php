@@ -25,6 +25,11 @@
 
                     {{-- Opciones --}}
                     <div class="absolute -top-3 px-4 bg-white ">
+
+                        <button class="mr-1" onclick="confirmDelete({{$option->id}}, 'option')">
+                          <i class="fa-solid fa-trash-can text-red-400 hover:text-red-800"></i>
+                        </button>
+
                         <span>
                             {{ $option->name }}
                         </span>
@@ -42,7 +47,7 @@
                                 {{$feature->description}}  
 
                                     <button class="bg-red-200 hover:bg-orange-700 rounded-sm" {{-- wire:click="deleteFeature({{$feature->id}})" --}}
-                                            onclick="confirmDelete({{$feature->id}})"> 
+                                            onclick="confirmDelete({{$feature->id}}, 'feature')"> 
                                         <i class="fa-solid fa-xmark text-black hover:text-white px-1.5 py-1.2"></i>
                                     </button>
 
@@ -55,7 +60,7 @@
                                     <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{{$feature->value}}}"></span>
 
                                         <button class="bg-red-200 hover:bg-orange-700 rounded-full absolute z-10 left-3 -top-3 h-4 w-4 flex justify-center items-center"
-                                               onclick="confirmDelete({{$feature->id}})"> 
+                                               onclick="confirmDelete({{$feature->id}}, 'feature')"> 
                                             <i class="fa-solid fa-xmark text-black hover:text-white px-1 py-1 text-sm"></i>
                                         </button>
                                
@@ -218,7 +223,7 @@
      @push('js')
 
         <script>
-            function confirmDelete(featureId){
+            function confirmDelete(id, type){
                     Swal.fire({
                     title: "Estas Seguro?",
                     text: "Este Proceso es Inrebersible!",
@@ -231,7 +236,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                     
-                        @this.call('deleteFeature', featureId);
+                        /*  Evaluamos lo que recibimos del boton */
+                        switch (type) {
+                            case 'feature':
+                                 @this.call('deleteFeature', id); 
+                            break;
+
+                            case 'option':
+                                 @this.call('deleteOption', id); 
+                            break;
+                        
+                            default:
+                                break;
+                        }
+
+                        
                         }
                 });
 
