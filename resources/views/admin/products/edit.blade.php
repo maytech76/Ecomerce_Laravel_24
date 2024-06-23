@@ -19,7 +19,16 @@
      
    ]">
 
-   @livewire('admin.products.product-edit', ['product' => $product])
+
+   <div class="mb-12">
+       {{-- Agregamos el componente ProductVariants --}}
+     @livewire('admin.products.product-edit', ['product' => $product], key('product-edit-'.$product->id))
+     
+   </div>
+
+
+   {{-- Agregamos el componente ProductVariants --}}
+   @livewire('admin.products.product-variants', ['product' => $product], key('product-variants-'.$product->id))
    
    
 

@@ -15,10 +15,10 @@ class Option extends Model
     ];
 
      /* Relacion Muchos a Muchos con Model Product */
-
      public function products(){
         return $this->belongsToMany(Product::class)
-         ->withPivot('value')
+         ->using(OptionProduct::class)
+         ->withPivot('features')
          ->withTimestamps();
     }
 

@@ -39,39 +39,39 @@
                      {{--  Valores --}}
                     <div class="flex flex-wrap mb-4">
 
-                    @foreach ($option->features as $feature)
+                        @foreach ($option->features as $feature)
 
-                        @switch($option->type)
-                            @case(1)
-                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pr-0.5 pl-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
-                                {{$feature->description}}  
+                            @switch($option->type)
+                                @case(1)
+                                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pr-0.5 pl-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
+                                    {{$feature->description}}  
 
-                                    <button class="bg-red-200 hover:bg-orange-700 rounded-sm" {{-- wire:click="deleteFeature({{$feature->id}})" --}}
-                                            onclick="confirmDelete({{$feature->id}}, 'feature')"> 
-                                        <i class="fa-solid fa-xmark text-black hover:text-white px-1.5 py-1.2"></i>
-                                    </button>
-
-                                </span>
-                                @break
-
-                            @case(2)
-                               <div class="relative">
-                                    {{-- Color --}}
-                                    <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{{$feature->value}}}"></span>
-
-                                        <button class="bg-red-200 hover:bg-orange-700 rounded-full absolute z-10 left-3 -top-3 h-4 w-4 flex justify-center items-center"
-                                               onclick="confirmDelete({{$feature->id}}, 'feature')"> 
-                                            <i class="fa-solid fa-xmark text-black hover:text-white px-1 py-1 text-sm"></i>
+                                        <button class="bg-red-200 hover:bg-orange-700 rounded-sm" {{-- wire:click="deleteFeature({{$feature->id}})" --}}
+                                                onclick="confirmDelete({{$feature->id}}, 'feature')"> 
+                                            <i class="fa-solid fa-xmark text-black hover:text-white px-1.5 py-1.2"></i>
                                         </button>
-                               
-                               </div>
 
-                                @break
-                            @default
+                                    </span>
+                                    @break
+
+                                @case(2)
+                                <div class="relative">
+                                        {{-- Color --}}
+                                        <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{{$feature->value}}}"></span>
+
+                                            <button class="bg-red-200 hover:bg-orange-700 rounded-full absolute z-10 left-3 -top-3 h-4 w-4 flex justify-center items-center"
+                                                onclick="confirmDelete({{$feature->id}}, 'feature')"> 
+                                                <i class="fa-solid fa-xmark text-black hover:text-white px-1 py-1 text-sm"></i>
+                                            </button>
                                 
-                        @endswitch
-                        
-                    @endforeach
+                                </div>
+
+                                    @break
+                                @default
+                                    
+                            @endswitch
+                            
+                        @endforeach
                     </div>
 
                     <div class="">

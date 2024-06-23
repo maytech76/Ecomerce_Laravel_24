@@ -130,6 +130,7 @@
         </div>
 
     </form>
+    
 
     <form action="{{route('admin.products.destroy', $product)}}" method="POST" id="delete-form">
         @csrf
