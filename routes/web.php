@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
+use App\Models\Variant;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,17 +23,32 @@ Route::middleware([
 /* Funciones Recursivas */
 Route::get('prueba', function () {
 
-    $array1 = ['a', 'b'];
+    $product = Product::find(150);
 
-    $array2 = ['a', 'b'];
+  $features = $product->options->Pluck('pivot.features');
 
-    $array3 = ['a', 'b'];
+  $combinaciones = generarCombinaciones($features);
 
-    $arrays = [$array1, $array2, $array3];
+  /* Eliminamos Todas la variantes que se crearon anteriormente */
+  $product->variants()->delete();
 
-    $combinaciones = generarCombinaciones($arrays);
 
-    return $combinaciones;
+
+  /* Creamos nuevas variantes segun las combinaciones posibles */
+  foreach ($combinaciones as $combinacion) {
+     
+    /* Generamos variant por cada combinacion que encuentre */
+    $variant = Variant::create([
+
+        'product_id' => $product->id,
+    ]);
+
+    $variant->features()->attach($combinacion);
+
+  }
+
+  return 'Variantes Creadas';
+
 
 });
 
@@ -50,7 +68,7 @@ function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
 
         $combinacionesTemporal = $combinacion;
 
-        $combinacionesTemporal[] = $item;
+        $combinacionesTemporal[] = $item['id'];
 
        $resultado = array_merge($resultado, generarCombinaciones($arrays, $indice + 1, $combinacionesTemporal));
 

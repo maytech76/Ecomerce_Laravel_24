@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
            /*  Creamos la relacion con el campo family_id y la tabla categories */
-            $table->foreignId('family_id')->constrained();
+            $table->foreignId('family_id')
+                  ->constrained()
+                  ->onDelete('cascade');
 
             $table->timestamps();
         });

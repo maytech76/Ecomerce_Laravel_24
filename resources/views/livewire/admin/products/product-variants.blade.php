@@ -1,84 +1,109 @@
 <div>
-    <section class="rounded-lg border border-gray-200 bg-white shadow-lg">
-        <header class="border-b border-gray-300 px-6 py-2">
+    <div>
+        <section class="rounded-lg border border-gray-200 bg-white shadow-lg mb-12">
+            <header class="border-b border-gray-300 px-6 py-2">
 
-            <div class="flex justify-between ">
-                <h1 class="text-lg font-semibold text-gray-700">
-                    Opciones del Producto
-                </h1>
-                <x-button wire:click="$set('openModal', true)">
-                    + Nuevo
-                </x-button>
-            </div>
-        </header>
+                <div class="flex justify-between ">
+                    <h1 class="text-lg font-semibold text-gray-700">
+                        Opciones del Producto
+                    </h1>
+                    <x-button wire:click="$set('openModal', true)">
+                        + Nuevo
+                    </x-button>
+                </div>
+            </header>
 
-        {{-- Sesion Listado de Features de Option --}}
-        <div class="p-6">
-            <div class="space-y-6">
+            {{-- Sesion Listado de Features de Option --}}
+            <div class="p-6">
+                <div class="space-y-6">
 
-                @foreach ($product->options as $option)
+                    @foreach ($product->options as $option)
 
-                   <div wire:key="product-option-{{$option->id}}"
-                     class=" relative p-6 rounded-lg border border-gray-300">
+                    <div wire:key="product-option-{{$option->id}}"
+                        class=" relative p-6 rounded-lg border border-gray-300">
 
-                     <div class="absolute -top-3 bg-white px-4">
-                        <button onclick="confirmDeleteOption({{$option->id}})">
-                         <i class="fa-solid fa-trash-can text-red-400 hover:text-red-800 "></i>
-                        </button>
+                        <div class="absolute -top-3 bg-white px-4">
+                            <button onclick="confirmDeleteOption({{$option->id}})">
+                            <i class="fa-solid fa-trash-can text-red-400 hover:text-red-800 "></i>
+                            </button>
 
-                        <span class="ml-3">
-                            {{$option->name}}
-                        </span>
-                     </div>
+                            <span class="ml-3">
+                                {{$option->name}}
+                            </span>
+                        </div>
 
 
-                        {{----------  Valores --------------}}
-                        <div class="flex flex-wrap">
+                            {{----------  Valores --------------}}
+                            <div class="flex flex-wrap">
 
-                            @foreach ($option->pivot->features as $feature)
+                                @foreach ($option->pivot->features as $feature)
 
-                                @switch($option->type)
-                                    @case(1){{-- Texto --}}
-                                        <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pr-0.5 pl-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
-                                        {{$feature['value']}}  
+                                <div wire:key="option-{{$option->id}}-feature-{{$feature['id']}}">
 
-                                            <button onclick="confirmDeleteFeature({{$option['id']}},{{$feature['id']}})" class="bg-red-200 hover:bg-orange-700 rounded-sm"> 
-                                                <i   class="fa-solid fa-xmark text-black hover:text-white px-1.5 py-1.2"></i>
-                                            </button>
+                                    @switch($option->type)
+                                            @case(1){{-- Texto --}}
+                                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pr-0.5 pl-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
+                                                {{$feature['value']}}  
 
-                                        </span>
-                                        @break
+                                                    <button onclick="confirmDeleteFeature({{$option['id']}},{{$feature['id']}})" class="bg-red-200 hover:bg-orange-700 rounded-sm"> 
+                                                        <i   class="fa-solid fa-xmark text-black hover:text-white px-1.5 py-1.2"></i>
+                                                    </button>
 
-                                    @case(2)  {{-- Color --}}
-                                    <div class="relative pt-2">
-                                           
-                                            <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{$feature['value']}}"></span>
+                                                </span>
+                                            @break
 
-                                                <button class="bg-red-200 hover:bg-orange-700 rounded-full absolute z-10 left-3 top-1 h-4 w-4 flex justify-center items-center"
-                                                    onclick="confirmDeleteFeature({{$option['id']}},{{$feature['id']}})"> 
-                                                    <i class="fa-solid fa-xmark text-black hover:text-white px-1 py-1 text-sm"></i>
-                                                </button>
+                                            @case(2)  {{-- Color --}}
+                                            <div class="relative pt-2">
+                                                
+                                                    <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{$feature['value']}}"></span>
+
+                                                        <button class="bg-red-200 hover:bg-orange-700 rounded-full absolute z-10 left-3 top-1 h-4 w-4 flex justify-center items-center"
+                                                            onclick="confirmDeleteFeature({{$option['id']}},{{$feature['id']}})"> 
+                                                            <i class="fa-solid fa-xmark text-black hover:text-white px-1 py-1 text-sm"></i>
+                                                        </button>
+                                            
+                                            </div>
+
+                                                @break
+                                        @default
+                                            
+                                    @endswitch
+
+                                </div>
                                     
-                                    </div>
+                                @endforeach
+                            </div>{{-- End Features --}}
 
-                                        @break
-                                    @default
-                                        
-                                @endswitch
-                                
-                            @endforeach
-                        </div>{{-- End Features --}}
-
+                            
+                        </div>  
                         
-                    </div>  
-                    
-                @endforeach
+                    @endforeach
+
+                </div>
+            </div>
+        <section> 
+    </div>
+
+    <div>
+        <section class="rounded-lg border border-gray-200 bg-white shadow-lg mb-12">
+            <header class="border-b border-gray-300 px-6 py-2">
+
+                <div class="flex justify-between ">
+                    <h1 class="text-lg font-semibold text-gray-700">
+                        Variantes
+                    </h1>
+                   
+                </div>
+            </header>
+
+            <div class="py-6">
 
             </div>
-        </div>
-    <section> 
-        
+            
+        </section>
+    </div>
 
+    
 
 
       {{-- Creamos el componente modal para el registro de las variants --}}
@@ -249,5 +274,5 @@
      </script>  
 
    @endpush
-</div>
+
 </div>

@@ -12,11 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('feature_variant', function (Blueprint $table) {
+            
             $table->id();
 
             /* Implementamos las dos migraciones que componen la tabla pivot option_producto */
-            $table->foreignId('feature_id')->constrained()->onDelete('cascade');
-            $table->foreignId('variant_id')->constrained()->onDelete('cascade');
+            $table->foreignId('feature_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+
+            $table->foreignId('variant_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

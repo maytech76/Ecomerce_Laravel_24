@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Products;
 use Livewire\Component;
 use App\Models\Option;
 use App\Models\Feature;
+use App\Models\Product;
 use Livewire\Attributes\Computed;
 use App\Models\Variant; 
 
@@ -103,6 +104,9 @@ class ProductVariants extends Component
         /* refrescamos la Ventana de Producto */
         $this->product = $this->product->fresh();
 
+          /* Generamos variantes */
+          $this->generarVariantes();
+
         /* Despues de salvar el registro reseteamos variant y Openmodal */
         $this->reset(['variant', 'openModal']);
     }
@@ -116,8 +120,7 @@ class ProductVariants extends Component
     }
 
 
-    public function deleteFeature($option_id, $feature_id)
-    {
+    public function deleteFeature($option_id, $feature_id){
         $this->product->options()->updateExistingPivot($option_id, [
           'features' => array_filter($this->product->options->find($option_id)->pivot->features, function ($feature) use ($feature_id){
             return $feature['id'] != $feature_id;
@@ -125,17 +128,77 @@ class ProductVariants extends Component
         ]);
 
         $this->product = $this->product->fresh(); 
+
+         /* Generamos variantes */
+         $this->generarVariantes();
     }
 
 
     /* Metodo para eliminar Opciones de la ficha de producto */
-    public function deleteOption($option_id)
-    {
+    public function deleteOption($option_id){
       
       $this->product->options()->detach($option_id);
 
       $this->product = $this->product->fresh();
+
+       /* Generamos variantes */
+       $this->generarVariantes();
     }
+
+
+public function generarVariantes(){
+
+  $features = $this->product->options->Pluck('pivot.features');
+
+  /* Generamos la combinaciones */
+  $combinaciones = $this->generarCombinaciones($features);
+
+   /* Eliminamos Todas la variantes que se crearon anteriormente */
+   $this->product->variants()->delete();
+
+   
+   /*Creamos nuevas variantes segun las combinaciones posibles */
+  foreach ($combinaciones as $combinacion) {
+     
+    /* Generamos variant por cada combinacion que encuentre */
+    $variant = Variant::create([
+
+        'product_id' => $this->product->id,
+    ]);
+
+    $variant->features()->attach($combinacion);
+
+  }
+
+}
+
+
+    /* Metodo para generar combinaciones de variantes */ 
+function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
+
+  {
+
+      if ($indice == count($arrays)){
+
+          return [$combinacion];
+
+      }
+
+      $resultado= [];
+
+      foreach ($arrays[$indice] as $item){
+
+          $combinacionesTemporal = $combinacion;
+
+          $combinacionesTemporal[] = $item['id'];
+
+        $resultado = array_merge($resultado, $this->generarCombinaciones($arrays, $indice + 1, $combinacionesTemporal));
+
+      }
+
+      return  $resultado;
+
+}
 
 
 

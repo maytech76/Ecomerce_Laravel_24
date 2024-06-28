@@ -15,8 +15,13 @@ return new class extends Migration
             $table->id();
 
             /* Implementamos las dos migraciones que componen la tabla pivot option_producto */
-            $table->foreignId('option_id')->constrained();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('option_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+                  
+            $table->foreignId('product_id')
+                  ->constrained()
+                  ->onDelete('cascade');
 
             $table->json('features');
 

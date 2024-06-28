@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             /* Creamos campo relacionado con la tabla categories */
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')
+                  ->constrained()
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }
