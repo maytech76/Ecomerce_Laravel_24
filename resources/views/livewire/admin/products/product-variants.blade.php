@@ -11,8 +11,76 @@
                 </x-button>
             </div>
         </header>
+
+        {{-- Sesion Listado de Features de Option --}}
+        <div class="p-6">
+            <div class="space-y-6">
+
+                @foreach ($product->options as $option)
+
+                   <div wire:key="product-option-{{$option->id}}"
+                     class=" relative p-6 rounded-lg border border-gray-300">
+
+                     <div class="absolute -top-3 bg-white px-4">
+                        <button onclick="confirmDeleteOption({{$option->id}})">
+                         <i class="fa-solid fa-trash-can text-red-400 hover:text-red-800 "></i>
+                        </button>
+
+                        <span class="ml-3">
+                            {{$option->name}}
+                        </span>
+                     </div>
+
+
+                        {{----------  Valores --------------}}
+                        <div class="flex flex-wrap">
+
+                            @foreach ($option->pivot->features as $feature)
+
+                                @switch($option->type)
+                                    @case(1){{-- Texto --}}
+                                        <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 pr-0.5 pl-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
+                                        {{$feature['value']}}  
+
+                                            <button onclick="confirmDeleteFeature({{$option['id']}},{{$feature['id']}})" class="bg-red-200 hover:bg-orange-700 rounded-sm"> 
+                                                <i   class="fa-solid fa-xmark text-black hover:text-white px-1.5 py-1.2"></i>
+                                            </button>
+
+                                        </span>
+                                        @break
+
+                                    @case(2)  {{-- Color --}}
+                                    <div class="relative pt-2">
+                                           
+                                            <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{$feature['value']}}"></span>
+
+                                                <button class="bg-red-200 hover:bg-orange-700 rounded-full absolute z-10 left-3 top-1 h-4 w-4 flex justify-center items-center"
+                                                    onclick="confirmDeleteFeature({{$option['id']}},{{$feature['id']}})"> 
+                                                    <i class="fa-solid fa-xmark text-black hover:text-white px-1 py-1 text-sm"></i>
+                                                </button>
+                                    
+                                    </div>
+
+                                        @break
+                                    @default
+                                        
+                                @endswitch
+                                
+                            @endforeach
+                        </div>{{-- End Features --}}
+
+                        
+                    </div>  
+                    
+                @endforeach
+
+            </div>
+        </div>
     <section> 
         
+
+
+
       {{-- Creamos el componente modal para el registro de las variants --}}
      <x-dialog-modal wire:model="openModal">
 
@@ -126,4 +194,60 @@
         </x-slot>
 
      </x-dialog-modal>
+
+
+     @push('js')
+
+     <script>
+
+          
+
+           function confirmDeleteFeature(option_id, feature_id){
+                       Swal.fire({
+                       title: "Seguro Eliminar Valores?",
+                       text: "Este Proceso es Inrebersible!",
+                       icon: "warning",
+                       showCancelButton: true,
+                       confirmButtonColor: "#3085d6",
+                       cancelButtonColor: "#d33",
+                       confirmButtonText: "Si, Eliminar!",
+                       cancelButtonText: "Cancelar"
+                   }).then((result) => {
+                       if (result.isConfirmed) {
+                       
+                           @this.call('deleteFeature', option_id, feature_id);
+
+                           
+                           }
+                   });
+
+           }
+
+
+           function confirmDeleteOption(option_id){
+                       Swal.fire({
+                       title: "Seguro Eliminar La Option",
+                       text: "Este Proceso es Inrebersible!",
+                       icon: "warning",
+                       showCancelButton: true,
+                       confirmButtonColor: "#3085d6",
+                       cancelButtonColor: "#d33",
+                       confirmButtonText: "Si, Eliminar!",
+                       cancelButtonText: "Cancelar"
+                   }).then((result) => {
+                       if (result.isConfirmed) {
+                       
+                           @this.call('deleteOption', option_id);
+
+                           
+                           }
+               });
+
+           }   
+       
+           
+     </script>  
+
+   @endpush
+</div>
 </div>
