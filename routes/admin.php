@@ -19,4 +19,10 @@ Route::resource('subcategories', SubcategoryController::class);
 Route::resource('products', ProductController::class);
 
 
+/* Definimos una nueva ruta que se encargara de la edicion de imagenes para las variantes */
+Route::get('product/{product}/variants/{variant}', [ProductController::class, 'variants'])
+     ->name('products.variants')
+     ->scopeBindings();
+
+
 

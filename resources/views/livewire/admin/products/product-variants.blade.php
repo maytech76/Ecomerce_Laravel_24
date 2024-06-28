@@ -96,10 +96,31 @@
                 </div>
             </header>
 
-            <div class="py-6">
+            <div class="py-6 -my-5">
+
+               <ul class="divide-y">
+                 @foreach ($product->variants as $item)
+
+                   <li class="pl-4 py-4 flex items-center">
+                     <img src="{{$item->image}}" class="w-10 h-10 object-cover object-center rounded-full">
+
+                      <p class="divide-x">
+                        @foreach ($item->features as $feature)
+
+                         <span class="px-3">  {{$feature->description}} </span>
+                            
+                        @endforeach
+                      </p>
+
+                      <a href="{{route('admin.products.variants', [$product, $item])}}" class="ml-auto mr-4 btn btn-yellow-300 btn-amarillo"> Editar </a>
+
+                   </li>
+                     
+                 @endforeach
+               </ul>
 
             </div>
-            
+
         </section>
     </div>
 

@@ -208,4 +208,6 @@ function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
     {
         return view('livewire.admin.products.product-variants');
     }
+
+  
 }
