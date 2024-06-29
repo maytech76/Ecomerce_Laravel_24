@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('images_path');
             $table->float('price');
+            $table->integer('stock')
+                  ->unsigned()
+                  ->default(0);
 
             /* Definimos sub_category con la relacion vinculada con la tabla sub_categoria */
             $table->foreignId('subcategory_id')

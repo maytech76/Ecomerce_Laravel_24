@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('sku')->nullable();
             $table->string('image_path')->nullable();
+            $table->integer('stock')
+                  ->unsigned()
+                  ->default(0);
 
             /* campo clave foranea con la tabla products */
             $table->foreignId('product_id')
