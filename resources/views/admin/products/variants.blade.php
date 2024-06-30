@@ -25,11 +25,15 @@
             </figure>
       
             <div class="absolute top-8 right-8">
-                <label class="flex items-center bg-white px-4 py-2 rounded-lg cursor-pointer">
+                <label class="flex items-center bg-white hover:bg-slate-600 hover:text-white px-4 py-2 rounded-lg cursor-pointer">
                    <i class="fas fa-camera mr-2"></i>
                    Actualizar Imagen
       
-                   <input class="hidden" type="file" accept="image/*" name="image" onchange="previewImage(event, '#imgVar')">
+                   <input class="hidden" 
+                          type="file" 
+                          accept="image/*" 
+                          name="image" 
+                          onchange="previewImage(event, '#imgVar')">
                 </label>
       
             </div>
@@ -37,6 +41,7 @@
 
         <div class="card">
             <div class="mb-4">
+
                 <x-label class="mb-2">
                     Código (SKU)
                 </x-label>
@@ -45,10 +50,8 @@
                   name="sku"
                   value="{{ old('sku', $variant->sku) }}"
                   placeholder="Ingresar Código SKU"
-                  class="w-full"
-                />
-                    
-               
+                  class="w-1/2"/>
+                        
             </div>
         </div>
 

@@ -20,13 +20,15 @@
 
         <div class="card">
 
+             {{-- Codigo --}}
             <div class="mb-4">
                 <x-label class="mb-2 font-semibold">
                     Código
                 </x-label>
                 <x-input wire:model="productEdit.sku" class="w-full" placeholder="Ingresar codigo interno del producto"/>
             </div>
-        
+             
+             {{-- //Nombre del producto --}}
             <div class="mb-4">
                 <x-label class="mb-2 font-semibold">
                     Nombre del Producto
@@ -45,6 +47,7 @@
                 </x-textarea>
             </div>
         
+             {{-- //Select Familia --}}
             <div class="mb-4">
                 <x-label class="mb-2 font-semibold">
                     Familias
@@ -102,18 +105,40 @@
         
             </div>
 
-            {{-- /precio del producto --}}
-            <div class="mb-4">
-                <x-label class="mb-2 font-semibold">
-                    Precio
-                </x-label>
+              {{-- Precio del producto --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+
+                {{-- /precio del producto --}}
+                <div class="mb-4">
+                    <x-label class="mb-2 font-semibold">
+                        Precio de Producto
+                    </x-label>
+                        <x-input 
+                            type="number"
+                            step="0.01"
+                            wire:model="productEdit.price"
+                            class="w-full"
+                            placeholder="Ingresar precio del producto">
+                        </x-input>
+                </div>
+            
+            @empty($product->variants->count() > 0 ) {{-- si las variantes del producto son menos que 0, mostrar Stock --}}  
+                
+                {{-- /Stock del producto --}} 
+                <div class="mb-4 w-50">
+                    <x-label class="mb-2 font-semibold">
+                        Stock del Producto
+                    </x-label>
                     <x-input 
                         type="number"
-                        step="0.01"
-                        wire:model="productEdit.price"
+                        wire:model="productEdit.stock"
                         class="w-full"
-                        placeholder="Ingresar precio del producto">
+                        placeholder="Ingresar el stock del producto">
                     </x-input>
+                </div>
+        
+            @endempty
+
             </div>
 
             <div class="flex justify-end">

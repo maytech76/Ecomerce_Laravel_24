@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Admin\Products;
 
-use Livewire\Component;
-use App\Models\Category;
-use App\Models\Family;
-use App\Models\Subcategory;
-use App\Models\Product;
-use Livewire\Attributes\Computed;
-use Illuminate\Support\Facades\Storage;
-use Livewire\WithFileUploads;
+    use Livewire\Component;
+    use App\Models\Category;
+    use App\Models\Family;
+    use App\Models\Subcategory;
+    use App\Models\Product;
+    use Livewire\Attributes\Computed;
+    use Illuminate\Support\Facades\Storage;
+    use Livewire\WithFileUploads;
 
 class ProductEdit extends Component
 {
@@ -25,7 +25,7 @@ class ProductEdit extends Component
 
     public function mount( Product $product)
     {
-        $this->productEdit = $product->only('sku', 'name', 'images_path', 'description', 'price', 'subcategory_id');
+        $this->productEdit = $product->only('sku', 'name', 'images_path', 'description', 'price', 'stock', 'subcategory_id');
 
         $this->families = Family::all();
 
@@ -87,6 +87,7 @@ class ProductEdit extends Component
                  'productEdit.name'=>'required|max:255',
                  'productEdit.description'=>'nullable',
                  'productEdit.price'=>'required|numeric|min:0',
+                 'productEdit.stock'=>'required|numeric|min:0',
                  'productEdit.subcategory_id'=>'required|exists:subcategories,id',
          ]);
  
