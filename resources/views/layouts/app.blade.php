@@ -14,6 +14,9 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <!--Font Awesom-->
+        <script src="https://kit.fontawesome.com/2fc07d9904.js" crossorigin="anonymous"></script>
+
         <!-- Styles -->
         @livewireStyles
     </head>
@@ -21,7 +24,9 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+           {{--  @livewire('navigation-menu') --}}
+
+           @livewire('navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
