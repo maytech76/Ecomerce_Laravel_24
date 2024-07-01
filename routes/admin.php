@@ -24,5 +24,10 @@ Route::get('product/{product}/variants/{variant}', [ProductController::class, 'v
      ->name('products.variants')
      ->scopeBindings();
 
+/* Definimos una nueva ruta que se encargará de la edicion de SKU - STOCK de una variante */
+Route::put('product/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
+     ->name('products.variantsUpdate')
+     ->scopeBindings();
+
 
 

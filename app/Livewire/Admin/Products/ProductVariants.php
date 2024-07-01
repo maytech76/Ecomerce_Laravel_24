@@ -170,6 +170,11 @@ public function generarVariantes(){
 
   }
 
+  /* Cada vez que se emita una nueva variante, emitira este evento */
+  $this->dispatch('variant-generate');
+  /* Este evento lo escucharemos desde ProductEdit.php */
+
+
 }
 
 

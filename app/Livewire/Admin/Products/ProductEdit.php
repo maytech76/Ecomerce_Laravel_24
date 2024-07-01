@@ -8,8 +8,10 @@ namespace App\Livewire\Admin\Products;
     use App\Models\Subcategory;
     use App\Models\Product;
     use Livewire\Attributes\Computed;
+    use Livewire\Attributes\On;
     use Illuminate\Support\Facades\Storage;
     use Livewire\WithFileUploads;
+    
 
 class ProductEdit extends Component
 {
@@ -17,7 +19,7 @@ class ProductEdit extends Component
 
     public $product;
     public $productEdit;
-
+   
     public $families;
     public $family_id='';
     public $category_id = '';
@@ -62,6 +64,13 @@ class ProductEdit extends Component
     public function updatedCategoryId($value)
     {
         $this->productEdit['subcategory_id']='';
+    }
+
+    /* Asignamos un evento updateProduct, el cual actualizara la clase  de producto */
+    #[On('variant-generate')]
+    public function updateProduct()
+    {
+        $this->product = $this->product->fresh();
     }
 
     #[Computed()]

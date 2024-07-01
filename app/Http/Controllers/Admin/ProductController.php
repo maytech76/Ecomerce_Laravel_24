@@ -90,4 +90,41 @@ class ProductController extends Controller
         /* retornar vista admin.products.variants, usando dos parametros (product, variant) */
         return view('admin.products.variants', compact('product', 'variant'));
     }
+
+    public function variantsUpdate(Request $request, Product $product, Variant $variant)
+    {
+       /* Aplicamos Validaciones a las repuestas que recibimos */
+       $data = $request->validate([
+
+           'image' => 'nullable|image|max:1024',
+           'sku'   => 'required',
+           'stock' => 'required|numeric|min:0'
+
+       ]);
+
+
+       /* Verificamos si se esta recibiendo alguna imagen */
+       if ($request->image) {
+
+         if ($variant->image_path) {
+            Storage::delete($variant->image_path); /* Si existe una image, Eliminarlaaa */
+         }
+         
+        $data['image_path'] = $request->image->store('products'); /* la imagen recibida en la variable $data la asignamos a parametro image  */
+
+       }
+
+        $variant->update($data); /* Acualizamos los datos a variant con los datos suministrados por $data */
+
+        //Mensaje Sweealert de confirmacion
+        session()->flash('swal',[
+            'title' => "Bien echo..!",
+            'text' => "La variante se Actualizo Exitosamente.",
+            'icon'=> "success",
+            'showConfirmButton'=> false,
+            'timer'=> 1800
+        ]);
+
+        return redirect()->route('admin.products.variants', [$product, $variant]);
+    }
 }

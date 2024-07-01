@@ -20,7 +20,7 @@
     @apply bg-red-500 text-white hover:bg-red-700;
   }
 
-  .btn-naranja {
+  .btn-verde {
     @apply bg-green-500 text-white hover:bg-orange-700;
   }
 
