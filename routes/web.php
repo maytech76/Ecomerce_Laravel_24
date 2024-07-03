@@ -23,7 +23,7 @@ Route::middleware([
 /* Funciones Recursivas */
 Route::get('prueba', function () {
 
-    $product = Product::find(150);
+  $product = Product::find(150);
 
   $features = $product->options->Pluck('pivot.features');
 

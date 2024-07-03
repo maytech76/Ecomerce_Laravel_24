@@ -1,11 +1,12 @@
-<div>
+<div x-data="{ open: false,}">
     <header class="bg-red-700">
         <x-container class="px-4 py-2">
             <div class="flex justify-between space-x-8 items-center">
-                <button class="text-1xl md:text-2xl">
+                <button class="text-1xl md:text-2xl" x-on:click="open = true">
                     <i class="fas fa-bars text-white"></i>
                 </button>
 
+                {{-- Icon lines Cols --}}
                 <h1 class="text-white">
                     <a href="/" class="inline-flex flex-col items-star">
                         <span class="text-xxl md:text-2xl leading-4 font-semibold">
@@ -17,14 +18,77 @@
                     </a>
                 </h1>
 
+                {{-- Inpu Buscar --}}
                 <div class="flex-1 hidden md:block">
                     <x-input class="w-full" placeholder="Buscar por producto, tienda o marcas"/>
                 </div>
 
-                <div class="space-x-8">
-                    <button class="text-xxl md:text-2xl">
-                        <i class="fas fa-user text-white"></i>
-                    </button>
+                <div class="space-x-8 flex items-center">
+
+                    <x-dropdown>
+
+                        <x-slot name="trigger">
+
+                            @auth
+                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                </button>
+
+                                
+                            @else
+                                <button class="text-xxl md:text-2xl">
+                                    <i class="fas fa-user text-white"></i>
+                                </button>
+                            @endauth
+                            
+
+                        </x-slot>
+
+                        
+                        <x-slot name="content">
+
+                            @guest
+
+                                <div class="px-2 py-2">
+
+                                    <div class="flex justify-center">
+                                        
+                                        <a href="{{route('login')}}" class="btn btn-rojo">Iniciar Sesión</a>
+
+                                    </div>
+
+                                    <p class="text-sm text-center mt-2">
+                                        ¿No tienes Cuenta? <a href="{{route('register')}}" class="text-red-500 hover:underline hover:text-red-800 hover:font-semibold">Registrate</a>
+                                    </p>
+                            
+
+                                </div>
+
+                            @else
+                                
+                                 <x-dropdown-link href="{{route('profile.show')}}">
+                                    Mi perfil
+                                 </x-dropdown-link>
+                                 
+                                 <div class="border-t border-gray-200"></div>
+
+                                <!-- Authentication -->
+                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                    @csrf
+    
+                                    <x-dropdown-link href="{{ route('logout') }}"
+                                             @click.prevent="$root.submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                                
+                                
+                            @endguest
+
+                        </x-slot>
+
+                    </x-dropdown>
+
 
                     <button class="text-xxl md:text-2xl">
                         <i class="fas fa-shopping-cart text-white"></i>
@@ -32,15 +96,19 @@
                 </div>
             </div>
 
+            {{-- Input Search Mobile --}}
             <div class="flex-1 md:hidden mt-4">
                 <x-input class="w-full" placeholder="Buscar por producto..!"/>
             </div>
+
         </x-container>
     </header>
 
-    <div class="fixed top-0 left-0 inset-0 bg-black bg-opacity-50 z-index-10"></div>
+   {{--  Background opacity --}}
+    <div x-show="open" x-on:click="open = false" style="display: none" class="fixed top-0 left-0 inset-0 bg-black bg-opacity-50 z-index-10"></div>
 
-    <div class="fixed top-0 left-0 z-20">
+    {{-- Display Menues --}}
+    <div x-show="open" style="display: none" class="fixed top-0 left-0 z-20">
         <div class="flex">
             <div class="w-screen md:w-80 h-screen bg-white">
                 <div class="bg-red-700 px-4 py-3 text-white font-semibold">
@@ -48,7 +116,7 @@
                         <span class="text-lg">
                             ¡Bienvenido!
                         </span>
-                        <button>
+                        <button x-on:click="open = false">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
