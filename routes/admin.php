@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CoverController;
 use App\Http\Controllers\Admin\FamilyController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -28,6 +29,11 @@ Route::get('product/{product}/variants/{variant}', [ProductController::class, 'v
 Route::put('product/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
      ->name('products.variantsUpdate')
      ->scopeBindings();
+
+
+ /* Definimo una nueva ruta donde gestionaremos el CRUD de Covers (Imagenes para el banner ) */
+
+ Route::resource('covers', CoverController::class);
 
 
 

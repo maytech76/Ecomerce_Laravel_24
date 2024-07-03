@@ -2,6 +2,7 @@
     <form wire:submit="store">
         
         <figure class="mb-4 relative">
+            
             <div class="absolute top-8 right-8">
             <label class="felx items-center px-4 py-2 rounded-lg bg-white hover:bg-gray-600 text-gray-600 hover:text-white cursor-pointer">
                     <i class="fas fa-camera mr-2"></i>
@@ -9,6 +10,7 @@
                     <input type="file" class="hidden" wire:model="image" accept="image/*">
             </label>
             </div>
+
             <img class="aspect-[16/9] object-cover object-center w-full rounded-lg" 
             src="{{$image ? $image->temporaryUrl() : asset('img/not_image.png')}}"
             alt="">
