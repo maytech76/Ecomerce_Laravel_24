@@ -24,8 +24,8 @@ class Cover extends Model
 
     protected $casts = [
 
-        'star_at'   => 'datatime',
-        'end_at'    => 'datatime',
+        'star_at'   => 'datetime',
+        'end_at'    => 'datetime',
         'is_active' => 'boolean',
     ];
 

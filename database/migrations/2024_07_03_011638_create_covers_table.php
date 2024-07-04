@@ -19,15 +19,14 @@ return new class extends Migration
 
             $table->string('title'); /* Titulo para identificar la imagen entre varias */
 
-            $table->data_time('star_at'); /* Fecha inicio publicacion */
+            $table->datetime('star_at'); /* Fecha inicio publicacion */
         
-            $table->data_time('end_at')->nullable(); /* Fecha Final de la Publicacion */
+            $table->datetime('end_at')->nullable(); /* Fecha Final de la Publicacion */
 
             $table->boolean('is_active')->default(true);   /* Campo para determinar si esta activa o inactiva */
 
             $table->integer('order')->default(0);  /* campop para determinar el orden de las imagenes en las publicaciones */
 
-            $table->
             $table->timestamps();
         });
     }
