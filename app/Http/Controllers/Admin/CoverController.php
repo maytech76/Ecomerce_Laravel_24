@@ -14,7 +14,9 @@ class CoverController extends Controller
      */
     public function index()
     {
-        return view('admin.covers.index');
+        $covers = Cover::orderBy('order')->get();
+
+        return view('admin.covers.index', compact('covers'));
     }
 
     /**
@@ -40,7 +42,7 @@ class CoverController extends Controller
 
      ]);
     
-  /*     dd($data); */
+     /*     dd($data); */
       
 
       /* a la variable $data Agregamos un campo adicional (image) */
