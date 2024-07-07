@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\Variant;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\FamilyController;
 
 
 /* Route::get('/', function () {
@@ -11,6 +12,9 @@ use App\Http\Controllers\WelcomeController;
 }); */
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
+
+/* ruta para controllar familias */
+Route::get('families/{family}', [FamilyController::class, 'show'])->name('families.show');
 
 Route::middleware([
     'auth:sanctum',
@@ -55,28 +59,28 @@ Route::get('prueba', function () {
 
 });
 
-function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
+/* function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
 
-{
+    {
 
-    if ($indice == count($arrays)){
+        if ($indice == count($arrays)){
 
-        return [$combinacion];
+            return [$combinacion];
 
-    }
+        }
 
-    $resultado= [];
+        $resultado= [];
 
-    foreach ($arrays[$indice] as $item){
+        foreach ($arrays[$indice] as $item){
 
-        $combinacionesTemporal = $combinacion;
+            $combinacionesTemporal = $combinacion;
 
-        $combinacionesTemporal[] = $item['id'];
+            $combinacionesTemporal[] = $item['id'];
 
-       $resultado = array_merge($resultado, generarCombinaciones($arrays, $indice + 1, $combinacionesTemporal));
+        $resultado = array_merge($resultado, generarCombinaciones($arrays, $indice + 1, $combinacionesTemporal));
 
-    }
+        }
 
-    return  $resultado;
+        return  $resultado;
 
-}
+    } */

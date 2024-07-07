@@ -23,6 +23,7 @@
                     <x-input class="w-full" placeholder="Buscar por producto, tienda o marcas"/>
                 </div>
 
+                {{-- Crear cuenta - Ver perfil --}}
                 <div class="space-x-8 flex items-center">
 
                     <x-dropdown>
@@ -94,6 +95,7 @@
                         <i class="fas fa-shopping-cart text-white"></i>
                     </button>
                 </div>
+
             </div>
 
             {{-- Input Search Mobile --}}
@@ -126,7 +128,7 @@
                     <ul>
                         @foreach ($families as $family)
                             <li wire:mouseover="$set('family_id', {{ $family->id }})">
-                                <a href="" class="flex justify-between px-4 py-4 text-gray-700 hover:text-red-600 hover:bg-gray-200 hover:font-semibold">
+                                <a href="{{route('families.show', $family)}}" class="flex justify-between px-4 py-4 text-gray-700 hover:text-red-600 hover:bg-gray-200 hover:font-semibold">
                                     {{ $family->name }}
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
@@ -144,7 +146,7 @@
                             {{$this->familyName}}
                         </p>
 
-                        <a href="" class="btn btn-rojo">
+                        <a href="{{route('families.show', $family_id)}}" class="btn btn-rojo">
                              Ver Todos..
                         </a>
                     </div>
