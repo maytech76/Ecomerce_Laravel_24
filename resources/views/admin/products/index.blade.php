@@ -42,6 +42,10 @@
                   <th scope="col" class="px-6 py-3">
                       Nombre
                   </th>
+                  
+                  <th scope="col" class="px-6 py-3">
+                        Imagen     
+                  </th>
 
                   <th scope="col" class="px-6 py-3">
                       Precio
@@ -67,6 +71,10 @@
 
                       <td class="px-6 py-4">
                           {{$product->name}}
+                      </td>
+
+                      <td class="px-6 py-4 w-10 h-10">
+                         <img class="rounded-md shadow-md" src="https://ecomerce.test/storage/{{$product->images_path}}">
                       </td>
 
                       <td class="px-6 py-4">

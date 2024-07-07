@@ -43,6 +43,11 @@
             <main>
                 {{ $slot }}
             </main>
+
+            {{-- Session footer page --}}
+            <div class="mt-10">
+                @include('layouts.partials.app.footer')
+            </div>
         </div>
 
         @stack('modals')
@@ -50,5 +55,6 @@
         @livewireScripts
 
         @stack('js')
+        
     </body>
 </html>

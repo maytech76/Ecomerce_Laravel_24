@@ -55,8 +55,8 @@
          'route'=> route('admin.covers.index'),
          'active'=> request()->routeIs('admin.covers.*'), 
       ]
-];
-@endphp
+   ];
+   @endphp
 
 
 <aside id="logo-sidebar" 
@@ -89,4 +89,5 @@
 
        </ul>
     </div>
+    
 </aside>

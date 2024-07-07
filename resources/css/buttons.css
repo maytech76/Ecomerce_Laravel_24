@@ -20,6 +20,10 @@
     @apply bg-red-500 text-white hover:bg-red-700;
   }
 
+  .btn-rosa {
+    @apply bg-red-300 text-gray-800 hover:bg-red-500 hover:text-white
+  }
+
   .btn-verde {
     @apply bg-green-500 text-white hover:bg-orange-700;
   }

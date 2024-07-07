@@ -32,6 +32,7 @@ class ProductEdit extends Component
         $this->families = Family::all();
 
         $this->category_id = $product->subcategory->category->id;
+        
         $this->family_id = $product->subcategory->category->family->id;
     }
 
