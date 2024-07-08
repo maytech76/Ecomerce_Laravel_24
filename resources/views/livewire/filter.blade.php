@@ -1,10 +1,10 @@
 <div class="bg-white py-12">
 
-    <x-container class="px-4 flex">
+    <x-container class="px-4 md:flex">
         
         {{-- Menu de Opciones --}}
         @if (count($options))
-            <aside class="w-52 flex-shrink-0 mr-8">
+            <aside class="md:w-52 md:flex-shrink-0 md:mr-8 mb-4 md:mb-0">
                     <ul class="space-y-6">
                         @foreach ( $options as $option )
 
@@ -45,7 +45,7 @@
         
  
         
-        <div class="flex-1">{{-- Inicio Sesion de Productos --}}
+        <div class="md:flex-1">{{-- Inicio Sesion de Productos --}}
            
             {{-- Componente Select para aplicar filtros por precio --}}
             <div class="ml-4 flex-1 mb-4">
@@ -64,7 +64,7 @@
             <hr class="my-4">
 
             {{-- Listado de productos --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-4">
 
                 @foreach ( $products as  $product)
                 
@@ -93,6 +93,7 @@
             <div class="mt-6">{{$products->links()}} </div>
 
         </div>{{-- Fin Session de Productos --}}
+
     </x-container>
    
 </div>
