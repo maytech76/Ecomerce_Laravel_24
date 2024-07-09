@@ -20,7 +20,7 @@
 
                 {{-- Inpu Buscar --}}
                 <div class="flex-1 hidden md:block">
-                    <x-input class="w-full" placeholder="Buscar por producto, tienda o marcas"/>
+                    <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar por producto, tienda o marcas"/>
                 </div>
 
                 {{-- Crear cuenta - Ver perfil --}}
@@ -100,7 +100,7 @@
 
             {{-- Input Search Mobile --}}
             <div class="flex-1 md:hidden mt-4">
-                <x-input class="w-full" placeholder="Buscar por producto..!"/>
+                <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar por producto..!"/>
             </div>
 
         </x-container>
@@ -173,4 +173,16 @@
             </div>
         </div>
     </div>
+    @push('js')
+
+    <script>
+        function search(value){
+           Livewire.dispatch('search',{
+              search: value
+           })
+        }
+    </script>
+        
+    @endpush
 </div>
+
