@@ -154,7 +154,7 @@
                     <ul class="grid grid-cols-1 xl:grid-cols-3 gap-6">
                         @foreach ($categories as $category)
                             <li>
-                                <a href="" class="text-gray-700 hover:text-red-600 hover:font-semibold">
+                                <a href="{{route('categories.show', $category )}}" class="text-gray-700 hover:text-red-600 hover:font-semibold">
                                     {{ $category->name }}
                                 </a>
                                 <ul class="mt-4 space-y-1">

@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\Variant;
+use App\Models\Category;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\CategoryController;
 
 
 /* Route::get('/', function () {
@@ -15,6 +17,10 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
 /* ruta para controllar familias */
 Route::get('families/{family}', [FamilyController::class, 'show'])->name('families.show');
+
+
+/* Ruta para controlar las consultas por categorias */
+Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::middleware([
     'auth:sanctum',
