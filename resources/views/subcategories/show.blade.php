@@ -54,6 +54,6 @@
     </x-container>
     
 
-      {{--   @livewire('filter', ['category_id' => $category->id])--}}
+         @livewire('filter', ['subcategory_id' => $subcategory->id])
 
 </x-app-layout>

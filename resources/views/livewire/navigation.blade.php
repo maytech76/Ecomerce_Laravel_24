@@ -136,6 +136,7 @@
                         @endforeach
                     </ul>
                 </div>
+
             </div>
 
             <div class="w-80 xl:w-[57rem] pt-[52px] hidden md:block">
@@ -162,7 +163,7 @@
                                     {{-- Listado de Subcategorias --}}
                                     @foreach ($category->subcategories as $subcategory)
                                         <li>
-                                            <a href="" class="text-sm text-gray-500 hover:text-red-600">
+                                            <a href="{{route('subcategories.show', $subcategory )}}" class="text-sm text-gray-500 hover:text-red-600">
                                                 {{ $subcategory->name }}
                                             </a>
                                         </li>
@@ -171,6 +172,7 @@
                             </li>
                         @endforeach
                     </ul>
+
                 </div>
             </div>
         </div>
