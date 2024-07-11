@@ -125,7 +125,7 @@
                 </div>
 
                 <div class="h-[calc(100vh-52px)] overflow-auto">
-                    <ul>
+                    <ul> {{-- Listado de femilias --}}
                         @foreach ($families as $family)
                             <li wire:mouseover="$set('family_id', {{ $family->id }})">
                                 <a href="{{route('families.show', $family)}}" class="flex justify-between px-4 py-4 text-gray-700 hover:text-red-600 hover:bg-gray-200 hover:font-semibold">
@@ -152,12 +152,14 @@
                     </div>
 
                     <ul class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                        {{-- Listado de Categorias --}}
                         @foreach ($categories as $category)
                             <li>
                                 <a href="{{route('categories.show', $category )}}" class="text-gray-700 hover:text-red-600 hover:font-semibold">
                                     {{ $category->name }}
                                 </a>
                                 <ul class="mt-4 space-y-1">
+                                    {{-- Listado de Subcategorias --}}
                                     @foreach ($category->subcategories as $subcategory)
                                         <li>
                                             <a href="" class="text-sm text-gray-500 hover:text-red-600">
@@ -185,4 +187,3 @@
         
     @endpush
 </div>
-

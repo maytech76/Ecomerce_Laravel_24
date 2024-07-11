@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\Variant;
-use App\Models\Category;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoryController;
 
 
 /* Route::get('/', function () {
@@ -22,6 +22,9 @@ Route::get('families/{family}', [FamilyController::class, 'show'])->name('famili
 /* Ruta para controlar las consultas por categorias */
 Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
+/* Ruta para direccionar las peticiones a la vista Subcategories */
+Route::get('subcategories/{subcategory}', [SubcategoryController::class, 'show'])->name('subcategories.show');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -31,6 +34,8 @@ Route::middleware([
         return view('welcome');
     })->name('welcome');
 });
+
+
 
 
 /* Funciones Recursivas */
@@ -65,7 +70,7 @@ Route::get('prueba', function () {
 
 });
 
-/* function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
+ function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
 
     {
 
@@ -89,4 +94,4 @@ Route::get('prueba', function () {
 
         return  $resultado;
 
-    } */
+    } 
