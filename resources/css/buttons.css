@@ -31,4 +31,8 @@
   .btn-lime {
     @apply bg-lime-500 text-white hover:bg-lime-700;
   }
+
+  .btn-gris{
+    @apply bg-gray-600 text-white hover:bg-gray-400 hover:text-gray-700;
+  }
   

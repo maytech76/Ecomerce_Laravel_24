@@ -60,7 +60,7 @@
                                 $ {{$product->price}}
                                 </p>
 
-                                <a href="" class="btn btn-rosa block w-full text-center font-extralight">
+                                <a href="{{route('products.show', $product)}}" class="btn btn-rosa block w-full text-center font-extralight">
                                     Más información
                                 </a>
                             </div>                  

@@ -6,6 +6,7 @@ use App\Models\Variant;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 
 
@@ -22,8 +23,17 @@ Route::get('families/{family}', [FamilyController::class, 'show'])->name('famili
 /* Ruta para controlar las consultas por categorias */
 Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
+
 /* Ruta para direccionar las peticiones a la vista Subcategories */
 Route::get('subcategories/{subcategory}', [SubcategoryController::class, 'show'])->name('subcategories.show');
+
+
+/* Ruta para direccionar las peticiones a la vista Productos */
+Route::get('products/{product}',[ProductController::class, 'show'])->name('products.show');
+
+
+
+
 
 Route::middleware([
     'auth:sanctum',
