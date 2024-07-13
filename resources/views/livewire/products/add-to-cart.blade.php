@@ -6,7 +6,7 @@
             <div class="col-span-1">
 
                 <figure class="mb-2">
-                    <img src="https://ecomerce.test/storage/{{$product->images_path}}" class="aspect-[16/9] w-full object-cover object-center rounded-lg shadow-md">
+                    <img src="{{ asset('storage/' . $product->images_path) }}" class="aspect-[16/9] w-full object-cover object-center rounded-lg shadow-md">
                 </figure>
                 <div class="text-sm text-gray-600">
                     {{$product->description}}
@@ -63,7 +63,7 @@
                </div>
 
                {{-- Boton Agregar al Carrito --}}
-               <button class="btn btn-rojo w-full mb-6">
+               <button class="btn btn-rojo w-full mb-6" wire:click="add_to_cart">{{-- al click, ejecuta el evento add_to_cart --}}
                 Agregar al Carrito
                </button>
 

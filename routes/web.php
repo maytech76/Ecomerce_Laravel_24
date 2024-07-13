@@ -8,7 +8,7 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
-
+use CodersFree\Shoppingcart\Facades\Cart;
 
 /* Route::get('/', function () {
     return view('welcome');
@@ -51,57 +51,10 @@ Route::middleware([
 /* Funciones Recursivas */
 Route::get('prueba', function () {
 
-  $product = Product::find(150);
+    Cart::instance('shopping');
 
-  $features = $product->options->Pluck('pivot.features');
-
-  $combinaciones = generarCombinaciones($features);
-
-  /* Eliminamos Todas la variantes que se crearon anteriormente */
-  $product->variants()->delete();
-
-
-
-  /* Creamos nuevas variantes segun las combinaciones posibles */
-  foreach ($combinaciones as $combinacion) {
-     
-    /* Generamos variant por cada combinacion que encuentre */
-    $variant = Variant::create([
-
-        'product_id' => $product->id,
-    ]);
-
-    $variant->features()->attach($combinacion);
-
-  }
-
-  return 'Variantes Creadas';
-
+  return Cart::content();
 
 });
 
- function  generarCombinaciones($arrays, $indice = 0, $combinacion = [])
-
-    {
-
-        if ($indice == count($arrays)){
-
-            return [$combinacion];
-
-        }
-
-        $resultado= [];
-
-        foreach ($arrays[$indice] as $item){
-
-            $combinacionesTemporal = $combinacion;
-
-            $combinacionesTemporal[] = $item['id'];
-
-        $resultado = array_merge($resultado, generarCombinaciones($arrays, $indice + 1, $combinacionesTemporal));
-
-        }
-
-        return  $resultado;
-
-    } 
+ 
