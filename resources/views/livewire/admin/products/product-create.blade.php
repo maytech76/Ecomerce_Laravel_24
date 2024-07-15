@@ -11,7 +11,7 @@
             </label>
             </div>
 
-            <img class="aspect-[16/9] object-cover object-center w-full rounded-lg" 
+            <img class="aspect-[1/1] object-cover object-center w-full rounded-lg" 
             src="{{$image ? $image->temporaryUrl() : asset('img/not_image.png')}}"
             alt="">
         </figure>

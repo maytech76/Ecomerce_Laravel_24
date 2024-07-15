@@ -40,8 +40,10 @@ class AddToCart extends Component
             ]);
 
 
-        }
+    }
         
+
+    
     public function render()
     {
        

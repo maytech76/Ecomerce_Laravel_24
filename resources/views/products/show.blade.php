@@ -52,8 +52,18 @@
         </nav>
   
     </x-container>
-    
+
+    {{-- Consultamos si el producto que se muestra contiene al menos 1 variants --}}
+    @if ($product->variants->count() > 0)
+
+    @livewire('products.add-to-cart-variants', ['product' => $product])
+
+    @else
+
     @livewire('products.add-to-cart', ['product' => $product])
+        
+    @endif
+    
 
     
 </x-app-layout>

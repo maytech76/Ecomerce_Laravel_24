@@ -28,7 +28,7 @@
 
         <div class="relative mb-6">
             <figure>
-               <img  class="aspect-[16/9] w-full object-cover object-center rounded-md" src="{{$variant->image}}" id="imgVar">
+               <img  class="aspect-[1/1] w-full object-cover object-center rounded-md" src="{{$variant->image}}" id="imgVar">
             </figure>
       
             {{-- Seccion para imagen --}}

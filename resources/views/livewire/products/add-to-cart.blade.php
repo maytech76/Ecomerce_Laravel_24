@@ -5,13 +5,10 @@
             {{-- columna Izquierda --}}
             <div class="col-span-1">
 
-                <figure class="mb-2">
-                    <img src="{{ asset('storage/' . $product->images_path) }}" class="aspect-[16/9] w-full object-cover object-center rounded-lg shadow-md">
+                <figure>
+                    <img src="{{ asset('storage/' . $product->images_path) }}" class="aspect-[1/1] w-full object-cover object-center rounded-lg shadow-md">
                 </figure>
-                <div class="text-sm text-gray-600">
-                    {{$product->description}}
-                </div>
-
+                
             </div>
 
             {{-- columna Derecha --}}
@@ -66,6 +63,10 @@
                <button class="btn btn-rojo w-full mb-6" wire:click="add_to_cart">{{-- al click, ejecuta el evento add_to_cart --}}
                 Agregar al Carrito
                </button>
+
+               <div class="text-sm text-gray-600 mb-4">
+                {{$product->description}}
+               </div>
 
                {{-- Icono - Texto entrega a domicilio --}}
                <div class="flex items-center space-x-4 text-gray-700">
