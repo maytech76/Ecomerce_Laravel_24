@@ -30,6 +30,11 @@ class AddToCart extends Component
                 ]
             ]);
 
+                /* Aplicamos un chequeo, si el usuario se encuentra autentificado permite add to cart */
+            if (auth()->check()){
+                Cart::store(auth()->id());
+            }
+
             $this->dispatch('swal', [
 
                  'position' => 'top-end',
@@ -43,7 +48,7 @@ class AddToCart extends Component
     }
         
 
-    
+
     public function render()
     {
        
