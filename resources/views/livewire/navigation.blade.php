@@ -6,7 +6,7 @@
                     <i class="fas fa-bars text-white"></i>
                 </button>
 
-                {{-- Icon lines Cols --}}
+                {{-- Logo-Nombre --}}
                 <h1 class="text-white">
                     <a href="/" class="inline-flex flex-col items-star">
                         <span class="text-xxl md:text-2xl leading-4 font-semibold">
@@ -25,7 +25,7 @@
 
                 {{-- Crear cuenta - Ver perfil --}}
                 <div class="space-x-8 flex items-center">
-
+                     {{-- Perfil de usuario --}}
                     <x-dropdown>
 
                         <x-slot name="trigger">
@@ -90,10 +90,19 @@
 
                     </x-dropdown>
 
-
-                    <button class="text-xxl md:text-2xl">
-                        <i class="fas fa-shopping-cart text-white"></i>
-                    </button>
+                  
+                       {{-- Icono Carrito --}}
+                       <a href="{{route('cart.index')}}" class=relative">
+                           <i class="fas fa-shopping-cart text-white text-xxl md:text-2xl"></i>
+                            <span id="cart-count"
+                            class="absolute items-center justify-center 
+                            md:top-8 xs:top-6 inline-flex w-6 h-6 
+                            bg-yellow-400 text-black rounded-full text-xs shadow">
+                            {{Cart::instance('shopping')->count()}}
+                            </span>
+                        </a>
+                 
+                    
                 </div>
 
             </div>
@@ -180,6 +189,11 @@
     @push('js')
 
     <script>
+
+        Livewire.on('cartUpdated', (count)=>{
+            document.getElementById('cart-count').innerText = count;
+        });
+
         function search(value){
            Livewire.dispatch('search',{
               search: value

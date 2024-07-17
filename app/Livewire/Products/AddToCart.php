@@ -34,6 +34,9 @@ class AddToCart extends Component
             if (auth()->check()){
                 Cart::store(auth()->id());
             }
+            /* Declaramos un evento que emitira el conteo de los items del carrito */
+            $this->dispatch('cartUpdated', Cart::count());
+            /* Este Evento sera escuchado por navigation.blade, donde se encuentra el icono cart */
 
             $this->dispatch('swal', [
 

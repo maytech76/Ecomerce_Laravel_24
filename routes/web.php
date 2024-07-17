@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\Variant;
@@ -9,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use CodersFree\Shoppingcart\Facades\Cart;
+
 
 /* Route::get('/', function () {
     return view('welcome');
@@ -31,6 +33,10 @@ Route::get('subcategories/{subcategory}', [SubcategoryController::class, 'show']
 /* Ruta para direccionar las peticiones a la vista Productos */
 Route::get('products/{product}',[ProductController::class, 'show'])->name('products.show');
 
+
+/* Ruta para direccionar las peticiones a la vista cart */
+
+Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
 
 
