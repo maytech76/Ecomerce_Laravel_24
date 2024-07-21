@@ -22,8 +22,12 @@ class DatabaseSeeder extends Seeder
         //Informacion asignada en crudo para el usuario principal
 
         \App\Models\User::factory()->create([
-            'name'=>'Marco A. yanez',
+            'name'=>'Marco Antonio',
+            'last_name'=>'Yanez Lopez',
+            'document_type'=>1,
+            'document_number'=> '987654321k',
             'email'=>'staroffic@gmail.com',
+            'phone'=>'+56987654321',
             'password'=> bcrypt('12345678')
          ]);
      
