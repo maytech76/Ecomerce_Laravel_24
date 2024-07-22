@@ -49,7 +49,31 @@
 
         <hr class="my-4 text-gray-500">
 
-        <div class="">
+        <div class=""
+            x-data="
+            {   {{-- elnlazamos la propiedad de Alpine con livewire --}}
+                   receiver: @entangle('createAddress.receiver'),
+                   receiver_info: @entangle('createAddress.receiver_info'),
+                }" x-init="
+                   $watch('receiver', value => {
+                    if(value == 1){
+
+                        receiver_info.name = '{{auth()->user()->name}}';
+                        receiver_info.last_name = '{{auth()->user()->last_name}}';
+                        receiver_info.document_type = '{{auth()->user()->document_type}}';
+                        receiver_info.document_number = '{{auth()->user()->document_number}}';
+                        receiver_info.phone = '{{auth()->user()->phone}}';
+
+                    }else{
+
+                        receiver_info.name = '';
+                        receiver_info.last_name = '';
+                        receiver_info.document_number = '';
+                        receiver_info.phone = '';
+
+                    }
+                   })
+                ">
             <p class="font-semibold mb-2">
                ¿Quien Recibirá el Pedido?
             </p>
@@ -57,12 +81,14 @@
             <div class="flex gap-8 items-center mb-4">
 
                 <label class="space-x-4">
-                    <input id="red-radio" type="radio" value="" name="colored-radio" class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1"> 
+                    <input x-model="receiver"  type="radio" value="1" name="colored-radio" 
+                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1"> 
                     El Comprador
                 </label>
 
                 <label class="space-x-4">
-                    <input id="red-radio" type="radio" value="" name="colored-radio" class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1">
+                    <input x-model="receiver"  type="radio" value="2" name="colored-radio" 
+                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1">
                      Otra Persona
                 </label>
 
@@ -70,8 +96,8 @@
 
             <div class="grid grid-cols-2 gap-2">
 
-                <div class=""><x-input class="w-full" placeholder="Nombre"></x-input></div>
-                <div class=""><x-input class="w-full" placeholder="Apellidos"></x-input></div>  
+                <div class=""><x-input x-bind:disabled="receiver == 1" x-model="receiver_info.name" class="w-full" placeholder="Nombre"></x-input></div>
+                <div class=""><x-input x-bind:disabled="receiver == 1" x-model="receiver_info.last_name" class="w-full" placeholder="Apellidos"></x-input></div>  
                 
                 <div class="flex space-x-2 mb-2">
                     <x-select>
@@ -81,10 +107,10 @@
                             
                         @endforeach
                     </x-select>
-                    <x-input class="w-full" placeholder="NUmero de Documento"/>   
+                    <x-input x-bind:disabled="receiver == 1" x-model="receiver_info.document_number" class="w-full" placeholder="Numero de Documento"/>   
                 </div>              
-                <div> <x-input class="w-full" placeholder="Ingresar Telefono"/> </div>
-                <div><button class="btn btn-rosa w-full">Cancelar</button></div>
+                <div> <x-input x-bind:disabled="receiver == 1" x-model="receiver_info.phone" class="w-full" placeholder="Ingresar Telefono"/> </div>
+                <div><button wire:click="$set('newAddress', false)" class="btn btn-rosa w-full">Cancelar</button></div>
                 <div><button class="btn btn-verde w-full">Registrar</button></div>
             </div>
 
