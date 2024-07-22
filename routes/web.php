@@ -8,8 +8,10 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SubcategoryController;
 use CodersFree\Shoppingcart\Facades\Cart;
+
 
 
 /* Route::get('/', function () {
@@ -35,8 +37,9 @@ Route::get('products/{product}',[ProductController::class, 'show'])->name('produ
 
 
 /* Ruta para direccionar las peticiones a la vista cart */
-
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+
+Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
 
 
 

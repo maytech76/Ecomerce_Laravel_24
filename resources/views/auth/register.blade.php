@@ -43,7 +43,7 @@
                     <x-input id="document_number" class="block mt-1 w-full"  name="document_number" :value="old('document_number')" required />
                 </div>
 
-
+                {{-- Email --}}
                 <div>
                     <x-label for="email" value="{{ __('Email') }}" />
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
@@ -55,6 +55,7 @@
                     <x-input id="phone" class="block mt-1 w-full"  name="phone" :value="old('document')" required />
                 </div>
     
+                {{-- Password --}}
                 <div>
                     <x-label for="password" value="{{ __('Password') }}" />
                     <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />

@@ -91,7 +91,7 @@
                      <span class="font-light text-gray-600"> CLP</span>
                   </p>
                </div>
-               <a href="" class="btn btn-rojo block w-full text-center">Continuar Compra</a>
+               <a href="{{route('shipping.index')}}" class="btn btn-rojo block w-full text-center">Continuar Compra</a>
            </div>
         </div>
 
