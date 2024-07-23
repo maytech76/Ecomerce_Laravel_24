@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-container>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="mx-3 grid grid-cols-1 md:grid-cols-3 gap-6">
 
             <div class="col-span-2 mt-12">
                {{-- LLamamo al componente livewire --}}

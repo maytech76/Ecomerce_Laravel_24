@@ -2,11 +2,13 @@
    <section class="bg-white rounded-lg shadow overflow-hidden">
 
     <header class="bg-gray-200 px-4 py-2">
-          <h2 class="text-gray-700">Direcciones de envio</h2>
+          <h2 class="text-gray-700 text-center md:text-left">Direcciones de envio</h2>
     </header>
 
-    <div class="p-4 text-center justify-center">
+    <div class="p-4">
         @if ($newAddress)
+ 
+        <x-validation-errors class="mb-6"/>  
 
          
         <div class="grid grid-cols-4 gap-4">
@@ -78,6 +80,7 @@
                ¿Quien Recibirá el Pedido?
             </p>
 
+            {{-- Quien recibe --}}
             <div class="flex gap-8 items-center mb-4">
 
                 <label class="space-x-4">
@@ -94,6 +97,7 @@
 
             </div>
 
+            {{-- Otra Persona --}}
             <div class="grid grid-cols-2 gap-2">
 
                 <div class=""><x-input x-bind:disabled="receiver == 1" x-model="receiver_info.name" class="w-full" placeholder="Nombre"></x-input></div>
@@ -111,7 +115,7 @@
                 </div>              
                 <div> <x-input x-bind:disabled="receiver == 1" x-model="receiver_info.phone" class="w-full" placeholder="Ingresar Telefono"/> </div>
                 <div><button wire:click="$set('newAddress', false)" class="btn btn-rosa w-full">Cancelar</button></div>
-                <div><button class="btn btn-verde w-full">Registrar</button></div>
+                <div><button wire:click="store" class="btn btn-verde w-full">Registrar</button></div>
             </div>
 
         </div>
@@ -121,14 +125,51 @@
         @else
 
             @if ($addresses->count())
+
+             <ul class="grid grid-cols-1  md:grid-cols-3 gap-4">
+                @foreach ($addresses as $address )
+
+                  <li class="{{$address->default ? 'bg-gray-200 shadow-lg': 'bg-white'}} rounded-lg shadow">
+
+                    <div class="p-4 flex items-center">
+                        <div><i class="fa-solid fa-house text-xl text-red-600"></i></div>
+                        <div class="flex-1 mx-4 text-xs">
+                            <p class="text-red-700 font-bold">
+                                {{$address->type == 1 ? 'Domicilio :': 'Oficina :'}}
+                            </p>
+
+                            <p class="text-gray-700 font-light">
+                                {{$address->district}}
+                            </p>
+
+                            <p class="text-gray-500 font-light">
+                                {{$address->description}}
+                            </p>
+
+                            <p class="text-gray-700 font-semibold">
+                                {{$address->receiver_info['name']}}
+                                <span>{{$address->receiver_info['last_name']}}</span>
+                            </p>
+                        </div>
+                        <div class="text-xs text-gray-600 flex flex-col gap-2">
+                            <button wire:click="setDefaultAdrress({{$address->id}})"><i class="fa-solid fa-star {{$address->default ? 'text-yellow-300' : 'text-gray-600'}}"></i></button>
+                            <button><i class="fa-solid fa-pencil text-gray-500"></i></button>
+                            <button><i class="fa-solid fa-trash-can text-red-500"></i></button>
+                        </div>
+                    </div>
+
+                  </li>
+                    
+                @endforeach
+             </ul>
                 
             @else
                 <p>No se ha encontrado Direcciones</p>
             @endif
 
             <button class="bg-gradient-to-r from-gray-400 to-gray-700 text-white font-bold hover:bg-gradient-to-l hover:from-gray-400 hover:to-gray-700 py-2 px-4 rounded w-full my-4"
-             wire:click="$set('newAddress', true)">
-            Agregar <i class="fa-solid fa-plus ml-2"></i>
+                    wire:click="$set('newAddress', true)">
+                    Agregar <i class="fa-solid fa-plus ml-2"></i>
             </button>
             
         @endif

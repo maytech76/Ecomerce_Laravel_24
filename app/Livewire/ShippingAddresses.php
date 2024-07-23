@@ -35,6 +35,31 @@ class ShippingAddresses extends Component
         ];
     }
 
+    /* Metodo store que sera activado por el boton registrar del formulario shipping-address */
+    public function store()
+    {
+        $this->createAddress->save();
+
+        /* verificamos que el user_id sea igual al id del usuario autenticado y refrescamos */
+        $this->addresses = Address::where('user_id', auth()->id())->get() ;
+
+       /*  Cerramos el formulario */
+       $this->newAddress = false;
+
+        
+    }
+
+    /* Metodo setDefaultAdrress activara el cambio de direccion por defecto */
+    public function setDefaultAdrress($id)
+    {
+       /*  establece el valor del campo default en true si el ID de la dirección actual 
+        coincide con el ID proporcionado ($id), y en false si no */
+
+        $this->addresses->each(function($address) use ($id){
+            $address->update(['default' =>$address->id == $id]);
+        });
+    }
+
     public function render()
     {
         return view('livewire.shipping-addresses');
