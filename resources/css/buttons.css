@@ -9,7 +9,7 @@
   }
 
   .btn-amarillo {
-    @apply bg-yellow-500 text-white hover:bg-yellow-700  font-medium;
+    @apply bg-yellow-500 text-yellow-950 hover:bg-yellow-700 hover:text-yellow-100  font-medium;
   }
 
   .btn-verde {

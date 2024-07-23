@@ -10,6 +10,10 @@
 
             <div class="col-span-1">
 
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+
+                </div>
+              
             </div>
 
         </div>

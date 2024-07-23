@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Http\Middleware\Authenticate;
 use App\Livewire\Forms\CreateAddressForm;
+use App\Livewire\Forms\Shipping\EditAddressForm;
 use App\Models\Address;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,10 @@ class ShippingAddresses extends Component
 
     public $newAddress = true;
 
+    /* INICIALIZAMOS LOS FORMULARIOS */
     public CreateAddressForm $createAddress;
+
+    public EditAddressForm $editAddress;
 
     public function mount()
     {
@@ -58,6 +62,40 @@ class ShippingAddresses extends Component
         $this->addresses->each(function($address) use ($id){
             $address->update(['default' =>$address->id == $id]);
         });
+    }
+
+    /* Metodo deleteAddress con el cual Eliminaremos la Dirrecion Seleccionada */
+    public function deleteAddress($id)
+    {
+        /* En la coleccion Address identidificamos
+        la primera encontrada segun el $id recibido y le asignamos el metodo delete */
+        Address::find($id)->delete();
+
+         /* verificamos que el user_id sea igual al id del usuario autenticado y refrescamos */
+         $this->addresses = Address::where('user_id', auth()->id())->get() ;
+/* 
+         Si se elimina la direccion por defecto, contar los registros, al menos debe existir un registro 
+         entonces el primero que encuentres, ejecutarle un update y aplicale el valor true por default */
+         if($this->addresses->where('default', true)->count() === 0 && $this->addresses->count() >0){
+
+            $this->addresses->first()->update(['default' => true]);
+         }
+
+    }
+
+    /* Metodo edit con el cual editaremos los campos de nuestras direciones */
+    public function edit($id)
+    {
+      $address = Address::find($id);
+      $this->editAddress->edit($address);
+    }
+
+    public function update()
+    {
+        $this->editAddress->update();
+
+         /* verificamos que el user_id sea igual al id del usuario autenticado y refrescamos */
+         $this->addresses = Address::where('user_id', auth()->id())->get() ;
     }
 
     public function render()
