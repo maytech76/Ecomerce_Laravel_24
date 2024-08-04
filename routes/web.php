@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\CheckoutController;
 use CodersFree\Shoppingcart\Facades\Cart;
 
 
@@ -40,6 +41,8 @@ Route::get('products/{product}',[ProductController::class, 'show'])->name('produ
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('shipping', [ShippingController::class, 'index'])->name('shipping.index');
+
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
 
 

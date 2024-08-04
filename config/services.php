@@ -31,4 +31,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'niubiz' =>[
+        
+        'merchant_id' => env('NIUVIZ_MERCHANT_ID'),
+        'user' => env('NIUBIZ_USER'),
+        'password'=> env('NIUBIZ_PASSWORD'),
+        'currency'=> env('NIUBIZ_CURRENCY'),
+        'url_api'=> env('NIUBIZ_URL_API'),
+        'url_js'=>env('NIUBIZ_URL_JS'),
+    ],
+
 ];
